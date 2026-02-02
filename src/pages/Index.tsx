@@ -1,9 +1,13 @@
 import Navigation from "@/components/Navigation";
-import DailyVibeInput from "@/components/DailyVibeInput";
+import DailyTaskPlanner from "@/components/DailyTaskPlanner";
 import GoalCard from "@/components/GoalCard";
 import CoachCorner from "@/components/CoachCorner";
+import { useUser } from "@/context/UserContext";
 
 const Index = () => {
+  const { userProfile } = useUser();
+  const userName = userProfile?.name || "friend";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Subtle background gradient */}
@@ -11,12 +15,12 @@ const Index = () => {
       
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         {/* Navigation */}
-        <Navigation userName="Alex" vibeStatus="Feeling: Determined 💪" />
+        <Navigation userName={userName} />
 
         {/* Main Content */}
         <main className="space-y-8 mt-6">
-          {/* Daily Vibe Input */}
-          <DailyVibeInput userName="Alex" />
+          {/* Daily Task Planner */}
+          <DailyTaskPlanner userName={userName} />
 
           {/* Goal Grid */}
           <section>
