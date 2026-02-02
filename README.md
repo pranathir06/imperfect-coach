@@ -5,7 +5,7 @@ A compassionate AI-powered life coaching web application that provides empatheti
 ## 🌟 Features
 
 ### Core Features
-- **AI-Powered Coaching**: Get personalized, empathetic life coaching responses using Google Gemini AI
+- **AI-Powered Coaching**: Get personalized, empathetic life coaching responses using Groq's Llama 3.1 70B model
 - **Conversational Chatbot**: Have meaningful conversations with your AI coach that remembers context within sessions
 - **Voice-Enabled Support**: Text-to-speech functionality using ElevenLabs - listen to coach responses with a click
 - **Daily Task Planner**: Create personalized daily schedules based on work, activities, routine, and insights
@@ -23,7 +23,7 @@ A compassionate AI-powered life coaching web application that provides empatheti
 - **Daily Feeling Selection**: Select and track your daily emotional state
 
 ### Smart Features
-- **Automatic Model Switching**: Intelligently switches between AI models when quota limits are reached
+- **Fast AI Responses**: Powered by Groq's ultra-fast inference API
 - **Context-Aware Conversations**: Chatbot remembers conversation history for better responses
 - **Personalized Experience**: All features adapt to your profile, routine, and preferences
 
@@ -40,7 +40,7 @@ A compassionate AI-powered life coaching web application that provides empatheti
 
 ### Backend
 - **FastAPI** - Modern Python web framework
-- **Google Generative AI (Gemini)** - AI model for coaching responses with smart model detection
+- **Groq API** - AI model for coaching responses (Llama 3.1 70B Versatile)
 - **ElevenLabs API** - Text-to-speech service
 - **Uvicorn** - ASGI server
 - **Python-dotenv** - Environment variable management
@@ -59,10 +59,10 @@ Before you begin, ensure you have the following installed:
 
 You'll need API keys from the following services:
 
-1. **Google Gemini API** - [Get API Key](https://makersuite.google.com/app/apikey)
-   - Free tier available
+1. **Groq API** - [Get API Key](https://console.groq.com/)
+   - Free tier available with generous rate limits
    - Used for AI coaching responses, meal suggestions, and daily planning
-   - The app automatically switches models when quota limits are reached
+   - Powered by Llama 3.1 70B Versatile model for best conversational AI experience
 
 2. **ElevenLabs API** - [Get API Key](https://elevenlabs.io/app/settings/api-keys)
    - Free tier available with limited credits
@@ -99,7 +99,7 @@ touch .env
 Add your API keys to the `.env` file:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
 ```
 
@@ -175,7 +175,7 @@ imperfect-coach/
 1. **Frontend (React)**: User interacts with the web interface
 2. **Backend (FastAPI)**: Handles API requests and integrates with AI services
 3. **AI Services**: 
-   - Google Gemini for generating coaching responses, meal suggestions, and daily plans
+   - Groq's Llama 3.1 70B model for generating coaching responses, meal suggestions, and daily plans
    - ElevenLabs for converting text to speech
 4. **LocalStorage**: Client-side persistence for user data, authentication, and preferences
 
@@ -190,57 +190,6 @@ imperfect-coach/
    - Chat with AI coach in Coach's Corner
    - Track focus areas (Sleep, Fuel, Passion)
 5. **Voice Support**: Click volume icon on coach messages to hear audio responses
-
-### API Endpoints
-
-#### Backend Endpoints
-
-- `GET /` - Health check endpoint
-- `GET /models` - List available Gemini models
-- `POST /agent/coach` - Get AI coaching response
-  ```json
-  {
-    "message": "User's message",
-    "feeling": "Determined",
-    "focus_areas": ["Sleep", "Fuel"]
-  }
-  ```
-- `POST /agent/chatbot` - Conversational AI with context
-  ```json
-  {
-    "message": "User's message",
-    "conversation_history": [
-      {"role": "user", "content": "Previous message"},
-      {"role": "assistant", "content": "Previous response"}
-    ]
-  }
-  ```
-- `POST /agent/daily-plan` - Generate personalized daily schedule
-  ```json
-  {
-    "work_schedule": "9 AM - 5 PM office work",
-    "other_activities": "Grocery shopping at 6 PM",
-    "other_insights": "Feeling tired today",
-    "routine": {...},
-    "user_profile": {...},
-    "feeling": "Tired"
-  }
-  ```
-- `POST /agent/meal-suggestions` - Get personalized meal suggestions
-  ```json
-  {
-    "height": 170,
-    "weight": 70,
-    "age": 25
-  }
-  ```
-- `POST /tts` - Convert text to speech
-  ```json
-  {
-    "text": "Text to convert to speech"
-  }
-  ```
-- `GET /test-tts-key` - Test ElevenLabs API key configuration
 
 ## 💻 Usage
 
@@ -293,14 +242,14 @@ imperfect-coach/
   - Ensure your ElevenLabs account has TTS permissions
   - Check that you're using a free-tier compatible model (`eleven_turbo_v2`)
 
-**Problem**: `429 Quota Exceeded` from Gemini
+**Problem**: `429 Rate Limit Exceeded` from Groq
 - **Solution**: 
-  - The app automatically tries different models when one hits quota
-  - Wait for quota reset or upgrade your plan
-  - Check which model hit quota in the error message
+  - Groq free tier has generous limits but may throttle at high usage
+  - Wait a moment and try again
+  - Check your usage at [Groq Console](https://console.groq.com/)
 
-**Problem**: Model not found errors
-- **Solution**: The code automatically detects available models. Check `/models` endpoint to see what's available
+**Problem**: API key errors
+- **Solution**: Verify your `GROQ_API_KEY` is correct in the `.env` file and restart the backend server
 
 ### Frontend Issues
 
@@ -341,8 +290,8 @@ imperfect-coach/
 ### Backend `.env` File
 
 ```env
-# Required: Google Gemini API Key
-GEMINI_API_KEY=your_gemini_api_key_here
+# Required: Groq API Key
+GROQ_API_KEY=your_groq_api_key_here
 
 # Required: ElevenLabs API Key (for text-to-speech)
 ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
@@ -410,9 +359,9 @@ For a detailed description of our inspiration, challenges, accomplishments, and 
 
 - **Inspiration**: Creating a compassionate AI companion that embraces imperfection and validates emotions
 - **What it does**: Provides empathetic AI coaching with personalized daily planning, meal suggestions, and voice-enabled support
-- **How we built it**: React frontend with FastAPI backend, integrating Google Gemini AI and ElevenLabs TTS
-- **Challenges**: API model compatibility, quota management, CORS configuration, browser autoplay policies
-- **Accomplishments**: Seamless AI integration, smart model switching, beautiful UI/UX, robust error handling, personalized features
+- **How we built it**: React frontend with FastAPI backend, integrating Groq's Llama 3.1 70B model and ElevenLabs TTS
+- **Challenges**: API integration, CORS configuration, browser autoplay policies, state management
+- **Accomplishments**: Fast AI responses with Groq, beautiful UI/UX, robust error handling, personalized features, voice-enabled support
 - **What we learned**: API integration best practices, modern web development, user-centered design, state management
 - **What's next**: Enhanced personalization, mobile apps, voice input, mood tracking, and more
 
