@@ -56,6 +56,14 @@ const Navigation = ({
 
       {/* Profile & Vibe Status */}
       <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate("/chat")}
+          className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground"
+        >
+          <MessageCircle className="w-5 h-5" />
+        </Button>
         <Badge 
           variant="secondary" 
           onClick={() => setFeelingDialogOpen(true)}
