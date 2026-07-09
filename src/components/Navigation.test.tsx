@@ -22,7 +22,7 @@ describe("Navigation", () => {
       </MemoryRouter>
     );
 
-    const chatButton = screen.getByRole("button", { name: "" });
+    const chatButton = screen.getByRole("button", { name: "Chat" });
     expect(chatButton).toBeInTheDocument();
   });
 });
