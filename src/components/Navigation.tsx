@@ -35,6 +35,13 @@ const Navigation = ({
     navigate("/auth");
   };
 
+  const handleChatClick = () => {
+    const chatSection = document.getElementById("coach-corner");
+    if (chatSection) {
+      chatSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // Get the current feeling or use default
   const currentFeeling = dailyFeeling
     ? `Feeling: ${dailyFeeling.feeling} ${dailyFeeling.emoji || ""}`
