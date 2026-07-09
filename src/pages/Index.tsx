@@ -35,7 +35,7 @@ const Index = () => {
           </section>
 
           {/* Coach's Corner */}
-          <section>
+          <section id="coach-corner">
             <CoachCorner />
           </section>
         </main>

@@ -1,6 +1,7 @@
-import { Sparkles, LogOut, User, Clock, Settings } from "lucide-react";
+import { Sparkles, LogOut, User, Clock, Settings, MessageCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +35,13 @@ const Navigation = ({
     navigate("/auth");
   };
 
+  const handleChatClick = () => {
+    const chatSection = document.getElementById("coach-corner");
+    if (chatSection) {
+      chatSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // Get the current feeling or use default
   const currentFeeling = dailyFeeling
     ? `Feeling: ${dailyFeeling.feeling} ${dailyFeeling.emoji || ""}`
@@ -55,6 +63,15 @@ const Navigation = ({
 
       {/* Profile & Vibe Status */}
       <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleChatClick}
+          className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground"
+          aria-label="Chat"
+        >
+          <MessageCircle className="w-5 h-5" />
+        </Button>
         <Badge 
           variant="secondary" 
           onClick={() => setFeelingDialogOpen(true)}
