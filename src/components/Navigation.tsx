@@ -66,7 +66,7 @@ const Navigation = ({
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate("/chat")}
+          onClick={handleChatClick}
           className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground"
         >
           <MessageCircle className="w-5 h-5" />
