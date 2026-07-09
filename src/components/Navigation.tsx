@@ -68,6 +68,7 @@ const Navigation = ({
           size="icon"
           onClick={handleChatClick}
           className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground"
+          aria-label="Chat"
         >
           <MessageCircle className="w-5 h-5" />
         </Button>
